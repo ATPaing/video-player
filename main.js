@@ -148,7 +148,7 @@ function lockScreenIndicatorUpdate(){
 }
 // audio adjusting
 function openAudioRange(){
-    audioRange.classList.add('active-audio-range')
+    audioRange.classList.toggle('active-audio-range')
 }
 function audioAdjust(){
     if(!audioAdjustStart){
@@ -186,6 +186,7 @@ function moveToNextPlayList(){
     
     playVideo()
 }
+
 // event bindings
 moviePlayer.addEventListener('mousemove', inactiveState)
 pausePlayBtn.addEventListener('click', playVideo)
@@ -233,6 +234,8 @@ function selectCurrentPlay(){
                 ifl.classList.remove('currently-playing')
             }
             IFL.classList.add('currently-playing')
+            console.log(filesUrl[i])
+            console.log(i)
             readFileAndPlay(filesUrl[i])
  
         })
@@ -261,6 +264,7 @@ movieInput.addEventListener('change', (e) => {
 })
 
 function readFileAndPlay(x){
+    console.log(x)
     reader.readAsDataURL(x)
 
     reader.onloadend = () => {
