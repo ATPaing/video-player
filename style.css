@@ -1,0 +1,371 @@
+*,*::before,*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --progress-width : 0%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(
+        to bottom,
+        #272353,
+        #302b63, 
+        #24243e 
+    );
+    overflow: hidden;
+}
+ul{
+    list-style-type: none;
+}
+.this-and-that, .this-and-that + div{
+    color: white;
+}
+video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+svg{
+    position: relative;
+    cursor: pointer;
+}
+svg:hover{
+    fill: blue;
+    stroke: blue;
+}
+.btn{
+    background-color: transparent;
+    transition: all 360ms ease-in-out;
+    position: relative;
+}
+.btn:hover{
+    transform: translateY(-5px)
+}
+.movie-player{
+    position: relative;
+    width: 60vw;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    box-shadow: 0px 0px 250px #c0b86d;
+}
+/* rgba(221, 221, 214, 0.705) */
+/* rgba(68, 68, 65, 0.849) */
+.lock-screen-indicator{
+    position: absolute;
+    top: 15px;
+    left: 5px;
+    background-color: hsl(0 0% 100% / 0.3);
+    padding: 0.3em 0 ;
+    border-radius: 5px;
+    transform: scale(0);
+    transition: all 360ms ease-in-out;
+}
+.lock-screen-indicator > *{
+    width: 50px;
+    aspect-ratio: 16/9; 
+    cursor: pointer;
+}
+.movie-control{
+    position: relative;
+    bottom: 59px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: .5em;
+    background-color: hsl(0 0% 100%/ 0.8);
+    z-index:0;
+    transform-origin: bottom;
+    transition: all 360ms ease-in-out;
+
+    /*
+        need for chrome
+        otherwise it might cause problem when drag the time progress
+    */
+    user-select: none;
+}
+.movie-control::before{
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    height: 8px;
+    width: var(--progress-width);
+    background-color: rgb(255, 94, 0);
+    border-radius:0 150px 150px 0;
+}
+.time-progress{
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    height: 8px;
+    width: 100%;
+    cursor: pointer;
+    background-color: hsl(0 0% 75% / 0.6);
+}
+.speedController{
+    width: 50px;
+    text-align: center;
+    user-select: none;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 0.5em 0.3em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    transition: 
+    transform 360ms ease-in-out, 
+    border-color 360ms ease-in-out,
+    box-shadow 360ms ease-in-out 50ms,
+    background-color 360ms ease-in-out 100ms,
+    color 360ms ease-in-out 100ms;
+}
+.speedController p,.speedController span{
+    font-size: clamp(0.8rem,1.3vw,1rem);
+}
+.speedController:hover{
+    border-color: transparent;
+    background-color: blue;
+    box-shadow: 1px 1px 3px black;
+    color: white;
+    transform: translateY(-3px)
+}
+.lock-screen{
+    margin-right: auto;
+}
+.lock-screen svg{
+    width: 50px;
+    aspect-ratio: 16/9;
+}
+.videoTime{
+    display: flex;
+    margin-inline: auto;
+    gap: .5em;
+    user-select: none;
+}
+.main-control{
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+.twenty-sec-back svg{
+    width: 50px;
+    aspect-ratio: 16/9;
+}
+.twenty-sec-back svg .cls-1,.twenty-sec-back svg .cls-3{
+    fill: none;
+    stroke-width: 5;
+}
+.twenty-sec-back svg:hover .cls-1,.twenty-sec-back svg:hover .cls-3{
+    stroke: blue;
+}
+.pause-play{
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 5px;
+}
+.twenty-sec-skip svg{
+    width: 50px;
+    aspect-ratio: 16/9;
+}
+.twenty-sec-skip svg .cls-2,.twenty-sec-skip svg .cls-3{
+    fill: none;
+    stroke-width: 5;
+}
+.twenty-sec-skip svg:hover .cls-2,.twenty-sec-skip svg:hover .cls-3{
+    stroke: blue;
+}
+.volume-control{
+    margin-bottom: 5px;
+    position: relative;
+}
+.audio-logo{
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+/*
+ ===== Note ======
+ width will be height and height will be width for range input since it is rotated 90deg so 
+ things like transform-origin/border-radius will work in reverse
+*/
+
+input[type='range']{
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    width: 120px;
+    height: 20px;
+    border-radius: 0 5px 5px 0;
+    transform: rotate(-90deg) scale(0,1);
+    /* left served as bottom */
+    transform-origin: left;
+    transition: all 360ms ease-in-out;
+    cursor: grab;
+}
+/* for FireFox */
+/* the rest will run with default */
+@supports(-moz-appearance: none){
+    input[type='range']{
+    appearance: none;
+    }
+    input[type='range']::-moz-range-thumb {
+        width: 15px;
+        height: 25px;
+        border: 0;
+        background: rgb(144, 144, 148);
+    }
+    input[type='range']::-moz-range-progress{
+        height: 100%;
+        border-radius: 0  5px 5px 0;
+        background: radial-gradient(
+            circle, 
+            rgb(230, 166, 193) 0%,
+            rgb(140, 174, 212) 100%
+        );
+    }
+}
+.audio-logo:hover + input[type='range']{
+    transform: rotate(-90deg) scale(1,1);
+}
+/* name is called twice to increase specificity */
+.active-audio-range.active-audio-range{
+    transform: rotate(-90deg) scale(1,1);
+}
+
+
+.full-screen{
+    margin-right: 1em;
+    margin-left: auto;
+}
+.full-screen svg{
+    stroke-width: 1;
+}
+@media(max-width: 897px){
+    .twenty-sec-back{
+        display: none;
+    }
+    .twenty-sec-skip{
+        display: none;
+    }
+}
+@media(max-width: 623px){
+    .full-screen{
+        margin-right: 5px;
+    }
+}
+.hamburger-toggle{
+    position: absolute;
+    right: 35px;
+    top: 25px;
+    transform: scale(1.5);
+    transition: all 160ms ease-in-out;
+}
+.active-hamburger{
+    display: none;
+}
+.hamburger-toggle:hover{
+    transform: scale(2,1.5);
+}
+.hamburger-toggle:hover svg{
+    stroke: none;
+}
+.file-uploader{
+    position: absolute;
+    top:0;
+    right: 0;
+    color: black;
+    background-color: white;
+    height: 100vh;
+    width: 40vw;
+    transform: translateX(100%);
+    transition: all 360ms linear;
+}
+.file-uploader-active{
+    transform: translateX(0);
+}
+.file-uploader__first-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+.file-uploader__first-row svg{
+    margin-right: 5px;
+    transform: scale(1.3);
+    transition: all 160ms ease-in-out;
+}
+.file-uploader__first-row svg:hover{
+    transform: scale(1.8);
+    stroke: none;
+}
+.file-uploader--title{
+    font-size: 1.2rem;
+    font-weight: bolder;
+    
+    pointer-events: none;
+}
+.upload{
+    position: relative;
+    padding: 1em;
+    border: 1px solid black;
+}
+.file-input-btn{
+    position: absolute;
+    width: 100%;
+    inset: 0;
+    opacity: 0;
+    z-index: 5;
+    cursor: pointer;
+}
+.file-input-btn:hover + .upload-text{
+    color: blue;
+}
+.upload-text{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center ;
+    gap: .3em;
+    font-size: 1.5rem;
+}
+.upload-text span{
+    font-size: 2rem;
+    font-weight: 900;
+}
+.inputed-files{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+}
+.inputed-files ul{
+    height: 75vh;
+    overflow-y:auto;
+}
+.inputed-files li{
+    text-shadow: 1px 1px hsl(0 0% 50% / 0.5);
+    font-size: 1.2rem;
+    padding: 1em;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.inputed-files li:hover{
+    color: blue;
+    box-shadow: 0px 0px 8px hsl(0 0% 20%);
+}
+li +  li {
+    border-top: 1px solid black;
+}
+.currently-playing{
+    background-color: deepskyblue;
+    color: blue;
+    box-shadow: 0px 0px 15px black;
+}
