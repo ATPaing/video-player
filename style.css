@@ -217,7 +217,7 @@ width: clamp(10px,4vw,50px)
 input[type='range']{
     position: absolute;
     top: -50%;
-    left: 50%;
+    left: 35%;
     width: 120px;
     height: 20px;
     border-radius: 0 5px 5px 0;
