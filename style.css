@@ -32,9 +32,15 @@ ul{
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: .5em;
 }
 .this-and-that,.attr,.note{
     color: white;
+}
+.note{
+    width: 80vw;
+    margin-inline: auto;
+    text-align: center;
 }
 .attr a {
     color: red;
