@@ -267,8 +267,7 @@ function readFileAndPlay(x){
         video.src = reader.result
         video.play()  
         form.reset()    
-        filesArr = []
-        filesUrl = []
+
  
     }
 }
