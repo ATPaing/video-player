@@ -148,6 +148,7 @@ function lockScreenIndicatorUpdate(){
 }
 // audio adjusting
 function openAudioRange(){
+    console.log('toggle')
     audioRange.classList.toggle('active-audio-range')
 }
 function audioAdjust(){
@@ -264,16 +265,12 @@ movieInput.addEventListener('change', (e) => {
 })
 
 function readFileAndPlay(x){
-    console.log(x)
-    reader.readAsDataURL(x)
+    let url = URL.createObjectURL(x)
+    video.src = url
+        
+    video.play()  
+    form.reset()    
 
-    reader.onloadend = () => {
-        video.src = reader.result
-        video.play()  
-        form.reset()    
-
- 
-    }
 }
 
 // for keyboard events
