@@ -27,6 +27,9 @@ ul{
 .this-and-that, .this-and-that + div{
     color: white;
 }
+.this-and-that{
+    font-size: clamp(.8rem,2vw,1.2rem);
+}
 video{
     width: 100%;
     height: 100%;
@@ -50,7 +53,7 @@ svg:hover{
 }
 .movie-player{
     position: relative;
-    width: 60vw;
+    width: 70vw;
     aspect-ratio: 16/9;
     overflow: hidden;
     box-shadow: 0px 0px 250px #c0b86d;
@@ -100,6 +103,7 @@ svg:hover{
     background-color: rgb(255, 94, 0);
     border-radius:0 150px 150px 0;
 }
+
 .time-progress{
     content: '';
     position: absolute;
@@ -126,6 +130,11 @@ svg:hover{
     box-shadow 360ms ease-in-out 50ms,
     background-color 360ms ease-in-out 100ms,
     color 360ms ease-in-out 100ms;
+}
+@media (max-width: 700px) {
+    .speedController{
+        display: none;
+    }
 }
 .speedController p,.speedController span{
     font-size: clamp(0.8rem,1.3vw,1rem);
@@ -154,6 +163,9 @@ svg:hover{
     display: flex;
     align-items: center;
     gap: 1.5em;
+}
+.main-control > *{
+width: clamp(10px,4vw,50px)
 }
 .twenty-sec-back svg{
     width: 50px;
@@ -285,7 +297,7 @@ input[type='range']{
     color: black;
     background-color: white;
     height: 100vh;
-    width: 40vw;
+    width: 50vw;
     transform: translateX(100%);
     transition: all 360ms linear;
 }
