@@ -28,8 +28,16 @@ body{
 ul{
     list-style-type: none;
 }
-.this-and-that, .this-and-that + div{
+.noti{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.this-and-that,.attr,.note{
     color: white;
+}
+.attr a {
+    color: red;
 }
 .this-and-that{
     font-size: clamp(.8rem,2vw,1.2rem);
